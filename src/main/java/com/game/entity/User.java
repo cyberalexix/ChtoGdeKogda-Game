@@ -7,9 +7,7 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
 @Builder
-@Setter
 @Entity
 @Table(name = "users")
 public class User {
@@ -25,6 +23,7 @@ public class User {
     private String password;
 
     @Column(name = "role", nullable = false)
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Column(name = "name_uk", nullable = false)
