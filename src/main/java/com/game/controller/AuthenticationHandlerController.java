@@ -17,7 +17,7 @@ public class AuthenticationHandlerController implements AuthenticationSuccessHan
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
         if (roles.contains("ROLE_USER")){
-            httpServletResponse.sendRedirect("/users");
+            httpServletResponse.sendRedirect("/user");
         }else {
             httpServletResponse.sendRedirect("/admin");
         }

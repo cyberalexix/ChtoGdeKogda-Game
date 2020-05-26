@@ -1,5 +1,6 @@
 package com.game.service;
 
+import com.game.dto.UserDTO;
 import com.game.entity.User;
 import com.game.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,15 @@ public class UserService {
 
     public User findByUsername(String username) {
         return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username not found " + username));
+    }
+
+    public User saveUser(UserDTO userDTO) {
+        return userRepository.save(User.builder()
+                .username(userDTO.getUsername())
+                .password(userDTO.getPassword())
+                .role(userDTO.getRole())
+                .name_uk(userDTO.getName_uk())
+                .name_en(userDTO.getName_en())
+                .build());
     }
 }

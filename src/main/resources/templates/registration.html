@@ -7,31 +7,9 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
-    <title th:text="#{login.title}"></title>
-    <link href="css/login.css" rel="stylesheet">
+    <title>Title</title>
 </head>
-
 <body>
-<div class="wrapper fadeInDown">
-    <div id="formContent">
 
-        <form th:action="@{/login}" method="POST">
-            <label for="username" th:text="#{login.username}"></label>
-            <input type="text" id="username" class="fadeIn second" name="username" placeholder="username">
-            <label for="password" th:text="#{login.password}"></label>
-            <input type="text" id="password" class="fadeIn third" name="password" placeholder="password">
-            <input type="submit" class="fadeIn fourth" th:text="#{login.log.button}">
-        </form>
-
-        <div align="center" th:if="${param.error}">
-            <p style="font-size: 20; color: #FF1C19;" th:text="#{login.log.error}"></p>
-        </div>
-
-        <div id="formFooter">
-            <a class="underlineHover" th:href="@{/registration}"><p th:text="#{login.registration}"></p></a>
-        </div>
-
-    </div>
-</div>
 </body>
 </html>
