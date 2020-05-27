@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class UserDTO {
     String username;
     String password;
+    String matching_password;
     Role role;
     String name_uk;
     String name_en;

@@ -7,8 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
-    <title th:text="#{registration.title}"></title>
-    <link href="css/login.css" rel="stylesheet">
+    <title th:text="#{admin.title}"></title>
 </head>
 
 <body>
@@ -26,10 +25,10 @@
             <li class="nav-item" sec:authorize="!isAuthenticated()">
                 <a class="nav-link" th:href="@{~/login}" th:text="#{navbar.login}"></a>
             </li>
-            <li class="nav-item active" sec:authorize="!isAuthenticated()">
+            <li class="nav-item" sec:authorize="!isAuthenticated()">
                 <a class="nav-link" th:href="@{~/registration}" th:text="#{navbar.registration}"></a>
             </li>
-            <li class="nav-item" sec:authorize="isAuthenticated()">
+            <li class="nav-item active" sec:authorize="isAuthenticated()">
                 <a class="nav-link" th:href="@{~/user}" th:text="#{navbar.user}"></a>
             </li>
             <li class="nav-item" sec:authorize="isAuthenticated()">
@@ -50,35 +49,5 @@
         </ul>
     </div>
 </nav>
-<div class="wrapper fadeInDown">
-    <div id="formContent">
-
-        <form th:action="@{/registration}" th:object="${user}" method="POST" enctype="utf8">
-            <label for="username" th:text="#{login.username}"></label>
-            <input type="text" id="username" class="fadeIn second" th:field="*{username}">
-            <label for="password" th:text="#{login.password}"></label>
-            <input type="text" id="password" class="fadeIn second" th:field="*{password}">
-            <label for="matching_password" th:text="#{login.matching.password}"></label>
-            <input type="text" id="matching_password" class="fadeIn second" th:field="*{matching_password}">
-            <label for="name_uk" th:text="#{login.ukrainian.name}"></label>
-            <input type="text" id="name_uk" class="fadeIn second" th:field="*{name_uk}">
-            <label for="name_en" th:text="#{login.english.name}"></label>
-            <input type="text" id="name_en" class="fadeIn second" th:field="*{name_en}">
-            <input type="submit" class="fadeIn third" th:value="#{login.submit.button}">
-        </form>
-
-        <div align="center" th:if="${param.error}">
-            <p style="font-size: 20; color: #FF1C19;" th:text="#{login.log.error}"></p>
-        </div>
-        <div align="center" th:if="${param.logout}">
-            <p style="font-size: 20; color: #FF1C19;" th:text="#{login.logout}"></p>
-        </div>
-
-        <div id="formFooter">
-            <a class="underlineHover" th:href="@{/registration}"><p th:text="#{login.registration}"></p></a>
-        </div>
-
-    </div>
-</div>
 </body>
 </html>
