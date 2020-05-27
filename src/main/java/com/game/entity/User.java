@@ -3,6 +3,7 @@ package com.game.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -32,4 +33,6 @@ public class User {
     @Column(name = "name_en", nullable = false)
     private String name_en;
 
+    @OneToMany(mappedBy = "user")
+    Set<Round> rounds;
 }
