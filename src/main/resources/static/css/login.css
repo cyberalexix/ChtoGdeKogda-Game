@@ -249,7 +249,9 @@ input[type=text]:placeholder {
   width: 100%;
 }
 
-
+label{
+    margin: 0px;
+}
 
 /* OTHERS */
 

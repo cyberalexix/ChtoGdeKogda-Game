@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/admin").hasRole("ADMIN")
                 .antMatchers("/user").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/registration").not().hasAnyRole("USER", "ADMIN")
+                .antMatchers("/registration*", "/login*").not().hasAnyRole("USER", "ADMIN")
                 .antMatchers("/", "/js/**", "/css/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -41,22 +41,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .csrf().disable();
 
     }
-
-/*
-    @Override
-    protected void configure(final HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/users").hasAnyRole("ADMIN","USER")
-                .antMatchers("/").permitAll()
-                .and()
-                .formLogin().loginPage("/login").successHandler(authenticationHandlerController)
-                .and()
-                .csrf().disable();
-    }
-
- */
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
