@@ -23,7 +23,7 @@ public class UserDTO {
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.role = user.getRole();
-        this.name_uk = user.getName_uk();
-        this.name_en = user.getName_en();
+        this.name_uk = user.getNameUk();
+        this.name_en = user.getNameEn();
     }
 }

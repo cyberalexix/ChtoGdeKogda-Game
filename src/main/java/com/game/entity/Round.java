@@ -21,25 +21,28 @@ public class Round {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "question_id")
     Question question;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     User user;
 
-    @Column(name = "hint_given", nullable = false)
+    @Column(name = "hint_given", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 0")
     private boolean isHintGiven;
 
-    @Column(name = "time_start", nullable = false)
+    @Column(name = "time_start", nullable = false, columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
     private Timestamp timeStarted;
 
-    @Column(name = "is_finished", nullable = false)
+    @Column(name = "is_finished", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 0")
     private boolean isFinished;
 
-    @Column(name = "is_won", nullable = false)
+    @Column(name = "given_answer")
+    private String givenAnswer;
+
+    @Column(name = "is_won", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 0")
     private boolean isWon;
 
-    @Column(name = "score", nullable = false)
+    @Column(name = "score", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 0")
     private int score;
 }

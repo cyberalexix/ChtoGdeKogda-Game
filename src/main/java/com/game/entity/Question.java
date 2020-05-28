@@ -38,7 +38,7 @@ public class Question {
     @Column(name = "answer_uk", nullable = false)
     private String answerUk;
 
-    @Column(name = "difficult", nullable = false)
+    @Column(name = "difficult", nullable = false, columnDefinition = "TINYINT DEFAULT 1")
     private int difficult;
 
     @OneToMany(mappedBy = "question")

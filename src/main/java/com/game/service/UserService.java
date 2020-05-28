@@ -37,8 +37,8 @@ public class UserService {
                 .username(userDTO.getUsername())
                 .password(cryptConfig.getPasswordEncoder().encode(userDTO.getPassword()))
                 .role(Role.ROLE_USER)
-                .name_uk(userDTO.getName_uk())
-                .name_en(userDTO.getName_en())
+                .nameUk(userDTO.getName_uk())
+                .nameEn(userDTO.getName_en())
                 .build());
     }
 }

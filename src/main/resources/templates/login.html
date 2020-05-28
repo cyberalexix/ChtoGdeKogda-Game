@@ -15,12 +15,15 @@
 <th:block th:include="/navbar"></th:block>
 <div class="wrapper fadeInDown">
     <div id="formContent">
+        <div align="center" th:if="${param.registered}">
+            <p style="font-size: 20; color: #3232FF;" th:text="#{login.registered}"></p>
+        </div>
 
         <form th:action="@{/login}" method="POST">
             <label for="username" th:text="#{login.username}"></label>
             <input type="text" id="username" class="fadeIn second" name="username">
             <label for="password" th:text="#{login.password}"></label>
-            <input type="text" id="password" class="fadeIn third" name="password">
+            <input type="password" id="password" class="fadeIn third" name="password">
             <input type="submit" class="fadeIn fourth" th:value="#{login.submit.button}">
         </form>
 

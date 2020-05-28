@@ -23,15 +23,15 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "role", nullable = false)
+    @Column(name = "role", nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'ROLE_USER'")
     @Enumerated(EnumType.STRING)
     private Role role;
 
     @Column(name = "name_uk", nullable = false)
-    private String name_uk;
+    private String nameUk;
 
     @Column(name = "name_en", nullable = false)
-    private String name_en;
+    private String nameEn;
 
     @OneToMany(mappedBy = "user")
     Set<Round> rounds;

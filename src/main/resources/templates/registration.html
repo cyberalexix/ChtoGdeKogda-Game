@@ -15,16 +15,15 @@
 <th:block th:include="/navbar"></th:block>
 <div class="wrapper fadeInDown">
     <div id="formContent">
-
         <form th:action="@{/registration}" th:object="${userDTO}" method="POST" enctype="utf8">
             <label for="username" th:text="#{login.username}"></label>
             <input type="text" id="username" class="fadeIn second" th:field="*{username}">
             <p class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
             <label for="password" th:text="#{login.password}"></label>
-            <input type="text" id="password" class="fadeIn second" th:field="*{password}">
+            <input type="password" id="password" class="fadeIn second" th:field="*{password}">
             <p class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
             <label for="matching_password" th:text="#{login.matching.password}"></label>
-            <input type="text" id="matching_password" class="fadeIn second" th:field="*{matching_password}">
+            <input type="password" id="matching_password" class="fadeIn second" th:field="*{matching_password}">
             <p class="text-danger" th:if="${#fields.hasErrors('matching_password')}" th:errors="*{matching_password}"></p>
             <label for="name_uk" th:text="#{login.ukrainian.name}"></label>
             <input type="text" id="name_uk" class="fadeIn second" th:field="*{name_uk}">
@@ -34,13 +33,6 @@
             <p class="text-danger" th:if="${#fields.hasErrors('name_en')}" th:errors="*{name_en}"></p>
             <input type="submit" class="fadeIn third" th:value="#{login.registration}">
         </form>
-
-        <div align="center" th:if="${param.error}">
-            <p style="font-size: 20; color: #FF1C19;" th:text="#{login.log.error}"></p>
-        </div>
-        <div align="center" th:if="${param.logout}">
-            <p style="font-size: 20; color: #FF1C19;" th:text="#{login.logout}"></p>
-        </div>
     </div>
 </div>
 </body>

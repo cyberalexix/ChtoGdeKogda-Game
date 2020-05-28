@@ -36,26 +36,11 @@ public class RegistrationController {
 
     @PostMapping
     public String saveUser(@ModelAttribute("userDTO") @Validated UserDTO userDTO, BindingResult bindingResult, final RedirectAttributes redirectAttributes) throws Exception {
-        System.out.print(userDTO);
         if(bindingResult.hasErrors()) {
             return "registration";
         }
         userService.saveUser(userDTO);
-        return "redirect:/registerSuccessful";
-    }
-
-    @InitBinder
-    protected void initBinder(WebDataBinder dataBinder) {
-        // Form target
-        Object target = dataBinder.getTarget();
-        if (target == null) {
-            return;
-        }
-        System.out.println("Target=" + target);
-
-        if (target.getClass() == UserDTO.class) {
-            dataBinder.setValidator(userDTOValidator);
-        }
+        return "redirect:/login?registered";
     }
 
     @RequestMapping("/registered")

@@ -42,5 +42,23 @@ public class UserDTOValidator implements Validator {
                 errors.rejectValue("matching_password", "error.password.matching");
             }
         }
+
+        if(!errors.hasFieldErrors("name_uk")) {
+            for (char a : userDTO.getName_uk().toCharArray()) {
+                if (Character.UnicodeBlock.of(a) != Character.UnicodeBlock.CYRILLIC) {
+                    errors.rejectValue("name_uk", "error.name.uk.alphabet");
+                    break;
+                }
+            }
+        }
+
+        if(!errors.hasFieldErrors("name_en")) {
+            for (char a : userDTO.getName_en().toCharArray()) {
+                if (Character.UnicodeBlock.of(a) != Character.UnicodeBlock.BASIC_LATIN) {
+                    errors.rejectValue("name_en", "error.name.en.alphabet");
+                    break;
+                }
+            }
+        }
     }
 }
