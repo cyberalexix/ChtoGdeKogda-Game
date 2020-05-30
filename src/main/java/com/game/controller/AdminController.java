@@ -85,11 +85,38 @@ public class AdminController {
 
     @GetMapping("/admin/question_list/{id}")
     public String editUser(@PathVariable Long id, Model model) {
+        Optional<Question> questionEntity = questionService.findById(id);
+        if(!questionEntity.isPresent()) {
+            return "redirect:/admin/question_list";
+        }
+        QuestionDTO questionDTO = new QuestionDTO(questionEntity.get());
+        model.addAttribute("questionDTO", questionDTO);
+        return "edit_question";
+    }
+
+    @PostMapping("/admin/question_list/{id}")
+    public String postEditUser(@PathVariable Long id,
+                               @ModelAttribute("questionDTO") @Validated QuestionDTO questionDTO,
+                               BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return "edit_question";
+        }
         Optional<Question> question = questionService.findById(id);
         if(!question.isPresent()) {
             return "redirect:/admin/question_list";
         }
-        return "error";
+        System.out.println(question.get().getId());
+        Question questionEntity = question.get();
+        questionEntity.setQuestionEn(questionDTO.getQuestionEn());
+        questionEntity.setQuestionUk(questionDTO.getQuestionUk());
+        questionEntity.setHintEn(questionDTO.getHintEn());
+        questionEntity.setHintUk(questionDTO.getHintUk());
+        questionEntity.setAnswerEn(questionDTO.getAnswerEn());
+        questionEntity.setAnswerUk(questionDTO.getAnswerUk());
+        questionEntity.setDifficult(questionDTO.getDifficult());
+        System.out.println(questionEntity);
+        questionService.updateQuestion(questionEntity);
+        return "redirect:/admin/question_list";
     }
 
     @GetMapping("/admin/add_new_question")

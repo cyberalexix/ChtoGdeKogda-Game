@@ -7,52 +7,47 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
-    <link href="/css/pagination.css" rel="stylesheet">
+    <link href="/css/login.css" rel="stylesheet">
     <title th:text="#{admin.title}"></title>
 </head>
 
 <body>
 <th:block th:include="/navbar"></th:block>
-
-<div class="row" th:if="${questionlist != null && !questionlist.isEmpty()}">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-        <table id="link-list" class="table table-striped table-bordered" style="width:100%">
-            <thead>
-            <tr>
-                <th th:text="#{table.id}"></th>
-                <th th:text="#{table.question.english}"></th>
-                <th th:text="#{table.hint.english}"></th>
-                <th th:text="#{table.answer.english}"></th>
-                <th th:text="#{table.question.uk}"></th>
-                <th th:text="#{table.hint.uk}"></th>
-                <th th:text="#{table.answer.uk}"></th>
-                <th th:text="#{table.difficult}"></th>
-                <th th:text="#{table.edit}"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="question : ${questionlist}">
-                <td th:text="${{question.id}}"></td>
-                <td th:text="${{question.questionEn}}"></td>
-                <td th:text="${{question.hintEn}}"></td>
-                <td th:text="${{question.answerEn}}"></td>
-                <td th:text="${{question.questionUk}}"></td>
-                <td th:text="${{question.hintUk}}"></td>
-                <td th:text="${{question.answerUk}}"></td>
-                <td th:text="${{question.difficult}}"></td>
-                <td><a th:href="@{/admin/question_list/} + ${question.id}">Edit</a></td>
-            </tr>
-            </tbody>
-        </table>
-        <div class="col-md-2"></div>
-        <div th:if="${questionlist.totalPages > 0}" class="pagination"
-             th:each="pageNumber : ${pageNumbers}">
-            <a th:href="@{/admin/question_list(page=${pageNumber})}"
-               th:text=${pageNumber}
-               th:class="${pageNumber==questionlist.number + 1} ? active"></a>
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <div align="center" th:if="${param.added}">
+            <p style="font-size: 20; color: #3232FF;" th:text="#{question.added}"></p>
         </div>
-        <div class="col-md-2"></div>
+        <form th:action="@{/admin/question_list/} + ${id}" th:object="${questionDTO}" method="POST" enctype="utf8">
+            <label for="questionEn" th:text="#{table.question.english}"></label>
+            <textarea type="text" id="questionEn" class="fadeIn second" th:field="*{questionEn}" />
+            <p class="text-danger" th:if="${#fields.hasErrors('questionEn')}" th:errors="*{questionEn}"></p>
+            <label for="questionUk" th:text="#{table.question.uk}"></label>
+            <textarea type="text" id="questionUk" class="fadeIn second" th:field="*{questionUk}" />
+            <p class="text-danger" th:if="${#fields.hasErrors('questionUk')}" th:errors="*{questionUk}"></p>
+            <label for="hintEn" th:text="#{table.hint.english}"></label>
+            <textarea type="text" id="hintEn" class="fadeIn second" th:field="*{hintEn}" />
+            <p class="text-danger" th:if="${#fields.hasErrors('hintEn')}" th:errors="*{hintEn}"></p>
+            <label for="hintUk" th:text="#{table.hint.uk}"></label>
+            <textarea type="text" id="hintUk" class="fadeIn second" th:field="*{hintUk}" />
+            <p class="text-danger" th:if="${#fields.hasErrors('hintUk')}" th:errors="*{hintUk}"></p>
+            <label for="answerEn" th:text="#{table.answer.english}"></label>
+            <textarea type="text" id="answerEn" class="fadeIn second" th:field="*{answerEn}" />
+            <p class="text-danger" th:if="${#fields.hasErrors('answerEn')}" th:errors="*{answerEn}"></p>
+            <label for="answerUk" th:text="#{table.answer.uk}"></label>
+            <textarea  type="text" id="answerUk" class="fadeIn second" th:field="*{answerUk}" />
+            <p class="text-danger" th:if="${#fields.hasErrors('answerUk')}" th:errors="*{answerUk}"></p>
+            <label for="difficult" th:text="#{table.difficult}"></label>
+            <select id="difficult" class="fadeIn second" th:field="*{difficult}">
+                <option value=1 th:text="#{difficult.verylow}" selected="selected"></option>
+                <option value=2 th:text="#{difficult.low}"></option>
+                <option value=3 th:text="#{difficult.middle}"></option>
+                <option value=4 th:text="#{difficult.high}"></option>
+                <option value=5 th:text="#{difficult.veryhigh}"></option>
+            </select>
+            <p class="text-danger" th:if="${#fields.hasErrors('difficult')}" th:errors="*{difficult}"></p>
+            <input type="submit" class="fadeIn third" th:value="#{question.edit}">
+        </form>
     </div>
 </div>
 </body>

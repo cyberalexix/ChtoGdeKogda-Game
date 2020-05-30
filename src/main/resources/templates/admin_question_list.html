@@ -28,6 +28,7 @@
                 <th th:text="#{table.hint.uk}"></th>
                 <th th:text="#{table.answer.uk}"></th>
                 <th th:text="#{table.difficult}"></th>
+                <th th:text="#{table.edit}"></th>
             </tr>
             </thead>
             <tbody>
@@ -40,6 +41,7 @@
                 <td th:text="${{question.hintUk}}"></td>
                 <td th:text="${{question.answerUk}}"></td>
                 <td th:text="${{question.difficult}}"></td>
+                <td><a th:href="@{/admin/question_list/} + ${question.id}">Edit</a></td>
             </tr>
             </tbody>
         </table>

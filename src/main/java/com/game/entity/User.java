@@ -23,7 +23,7 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "role", nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'ROLE_USER'")
+    @Column(name = "role", nullable = false, columnDefinition = "VARCHAR(20) DEFAULT 'ROLE_USER'")
     @Enumerated(EnumType.STRING)
     private Role role;
 
