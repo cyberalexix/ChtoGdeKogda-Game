@@ -2,6 +2,7 @@ package com.game.controller;
 
 import com.game.config.GameConfig;
 import com.game.dto.QuestionDTO;
+import com.game.dto.QuestionDTOValidator;
 import com.game.dto.UserDTO;
 import com.game.entity.Question;
 import com.game.entity.User;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -40,6 +42,9 @@ public class AdminController {
 
     @Autowired
     private GameConfig gameConfig;
+
+    @Autowired
+    QuestionDTOValidator questionDTOValidator;
 
     @GetMapping("/admin/user_list")
     public String adminUserList(
@@ -77,7 +82,7 @@ public class AdminController {
         return "admin_question_list";
     }
 
-    @GetMapping("/admin/add_question")
+    @GetMapping("/admin/add_new_question")
     public String addQuestionPage(@RequestParam(value = "added", required = false) String added,
             Model model) {
         QuestionDTO questionDTO = new QuestionDTO();
@@ -86,12 +91,25 @@ public class AdminController {
         return "admin_add_question";
     }
 
-    @PostMapping("/admin/add_question")
+    @PostMapping("/admin/add_new_question")
     public String saveUser(@ModelAttribute("questionDTO") @Validated QuestionDTO questionDTO, BindingResult bindingResult, final RedirectAttributes redirectAttributes) throws Exception {
         if(bindingResult.hasErrors()) {
             return "admin_add_question";
         }
         questionService.saveQuestion(questionDTO);
-        return "redirect:/admin/add_question?added";
+        return "redirect:/admin/add_new_question?added";
+    }
+
+    @InitBinder
+    protected void initBinder(WebDataBinder dataBinder) {
+        // Form target
+        Object target = dataBinder.getTarget();
+        if (target == null) {
+            return;
+        }
+        System.out.println("Target=" + target);
+        if (target.getClass() == QuestionDTO.class) {
+            dataBinder.setValidator(questionDTOValidator);
+        }
     }
 }

@@ -32,4 +32,8 @@ public class QuestionService {
                 .difficult(questionDTO.getDifficult())
                 .build());
     }
+
+    void deleteQuestion(Long id) {
+        questionRepository.deleteById(id);
+    }
 }

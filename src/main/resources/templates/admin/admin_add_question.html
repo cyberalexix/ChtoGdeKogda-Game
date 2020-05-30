@@ -8,7 +8,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <title th:text="#{registration.title}"></title>
-    <link href="css/login.css" rel="stylesheet">
+    <link type="text/css" href="/css/login.css" rel="stylesheet">
 </head>
 
 <body>
@@ -18,28 +18,38 @@
         <div align="center" th:if="${param.added}">
             <p style="font-size: 20; color: #3232FF;" th:text="#{question.added}"></p>
         </div>
-        <form th:action="@{/admin/add_question}" th:object="${questionDTO}" method="POST" enctype="utf8">
+        <form th:action="@{/admin/add_new_question}" th:object="${questionDTO}" method="POST" enctype="utf8">
+            <!--
             <label for="questionEn" th:text="#{table.question.english}"></label>
             <input type="text" id="questionEn" class="fadeIn second" th:field="*{questionEn}">
+            <p class="text-danger" th:if="${#fields.hasErrors('questionEn')}" th:errors="*{questionEn}"></p>-->
+            <label for="questionEn" th:text="#{table.question.english}"></label>
+            <textarea type="text" id="questionEn" class="fadeIn second" th:field="*{questionEn}" />
             <p class="text-danger" th:if="${#fields.hasErrors('questionEn')}" th:errors="*{questionEn}"></p>
             <label for="questionUk" th:text="#{table.question.uk}"></label>
-            <input type="text" id="questionUk" class="fadeIn second" th:field="*{questionUk}">
+            <textarea type="text" id="questionUk" class="fadeIn second" th:field="*{questionUk}" />
             <p class="text-danger" th:if="${#fields.hasErrors('questionUk')}" th:errors="*{questionUk}"></p>
             <label for="hintEn" th:text="#{table.hint.english}"></label>
-            <input type="text" id="hintEn" class="fadeIn second" th:field="*{hintEn}">
+            <textarea type="text" id="hintEn" class="fadeIn second" th:field="*{hintEn}" />
             <p class="text-danger" th:if="${#fields.hasErrors('hintEn')}" th:errors="*{hintEn}"></p>
             <label for="hintUk" th:text="#{table.hint.uk}"></label>
-            <input type="text" id="hintUk" class="fadeIn second" th:field="*{hintUk}">
+            <textarea type="text" id="hintUk" class="fadeIn second" th:field="*{hintUk}" />
             <p class="text-danger" th:if="${#fields.hasErrors('hintUk')}" th:errors="*{hintUk}"></p>
             <label for="answerEn" th:text="#{table.answer.english}"></label>
-            <input type="text" id="answerEn" class="fadeIn second" th:field="*{answerEn}">
+            <textarea type="text" id="answerEn" class="fadeIn second" th:field="*{answerEn}" />
             <p class="text-danger" th:if="${#fields.hasErrors('answerEn')}" th:errors="*{answerEn}"></p>
             <label for="answerUk" th:text="#{table.answer.uk}"></label>
-            <input type="text" id="answerUk" class="fadeIn second" th:field="*{answerUk}">
+            <textarea  type="text" id="answerUk" class="fadeIn second" th:field="*{answerUk}" />
             <p class="text-danger" th:if="${#fields.hasErrors('answerUk')}" th:errors="*{answerUk}"></p>
-            <label for="difficulty" th:text="#{table.difficult}"></label>
-            <input type="text" id="difficulty" class="fadeIn second" th:field="*{difficulty}">
-            <p class="text-danger" th:if="${#fields.hasErrors('difficulty')}" th:errors="*{difficulty}"></p>
+            <label for="difficult" th:text="#{table.difficult}"></label>
+            <select id="difficult" class="fadeIn second" th:field="*{difficult}">
+                <option value=1 th:text="#{difficult.verylow}" selected="selected"></option>
+                <option value=2 th:text="#{difficult.low}"></option>
+                <option value=3 th:text="#{difficult.middle}"></option>
+                <option value=4 th:text="#{difficult.high}"></option>
+                <option value=5 th:text="#{difficult.veryhigh}"></option>
+            </select>
+            <p class="text-danger" th:if="${#fields.hasErrors('difficult')}" th:errors="*{difficult}"></p>
             <input type="submit" class="fadeIn third" th:value="#{question.add}">
         </form>
     </div>
