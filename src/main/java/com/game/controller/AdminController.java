@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -80,6 +81,15 @@ public class AdminController {
             model.addAttribute("pageNumbers", pageNumbers);
         }
         return "admin_question_list";
+    }
+
+    @GetMapping("/admin/question_list/{id}")
+    public String editUser(@PathVariable Long id, Model model) {
+        Optional<Question> question = questionService.findById(id);
+        if(!question.isPresent()) {
+            return "redirect:/admin/question_list";
+        }
+        return "error";
     }
 
     @GetMapping("/admin/add_new_question")
