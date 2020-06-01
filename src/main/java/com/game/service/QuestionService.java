@@ -5,6 +5,8 @@ import com.game.entity.Question;
 import com.game.repository.QuestionRepository;
 import jdk.nashorn.internal.runtime.options.Option;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +24,10 @@ public class QuestionService {
 
     public List<Question> findAll() {
         return questionRepository.findAll();
+    }
+
+    public Page<Question> findAll(Pageable pageable) {
+        return questionRepository.findAll(pageable);
     }
 
     @Transactional

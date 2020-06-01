@@ -43,7 +43,6 @@ public class PageController {
         if (target == null) {
             return;
         }
-        System.out.println("Target=" + target);
 
         if (target.getClass() == UserDTO.class) {
             dataBinder.setValidator(userDTOValidator);

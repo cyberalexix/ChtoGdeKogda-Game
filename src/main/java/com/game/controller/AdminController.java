@@ -9,6 +9,7 @@ import com.game.entity.User;
 import com.game.repository.QuestionRepository;
 import com.game.repository.UserRepository;
 import com.game.service.QuestionService;
+import com.game.service.UserService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +34,10 @@ import java.util.stream.IntStream;
 @Controller
 public class AdminController {
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private QuestionRepository questionRepository;
-
-    @Autowired
     private QuestionService questionService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private GameConfig gameConfig;
@@ -53,7 +51,7 @@ public class AdminController {
             @RequestParam("page") Optional<Integer> page) {
         int currentPage = page.orElse(1);
         int sizePage = Integer.parseInt(gameConfig.getValue("pagination.size"));
-        Page<User> userPage = userRepository.findAll(PageRequest.of(currentPage-1, sizePage));
+        Page<User> userPage = userService.findAll(PageRequest.of(currentPage-1, sizePage));
         model.addAttribute("userlist", userPage);
         int totalPages = userPage.getTotalPages();
         if (totalPages > 0) {
@@ -71,7 +69,7 @@ public class AdminController {
             @RequestParam("page") Optional<Integer> page) {
         int currentPage = page.orElse(1);
         int sizePage = Integer.parseInt(gameConfig.getValue("pagination.size"));
-        Page<Question> userPage = questionRepository.findAll(PageRequest.of(currentPage-1, sizePage));
+        Page<Question> userPage = questionService.findAll(PageRequest.of(currentPage-1, sizePage));
         model.addAttribute("questionlist", userPage);
         int totalPages = userPage.getTotalPages();
         if (totalPages > 0) {
@@ -144,7 +142,7 @@ public class AdminController {
         if (target == null) {
             return;
         }
-        System.out.println("Target=" + target);
+
         if (target.getClass() == QuestionDTO.class) {
             dataBinder.setValidator(questionDTOValidator);
         }

@@ -1,20 +1,25 @@
 package com.game.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
-@Data
+import static org.hibernate.annotations.FetchMode.SELECT;
+
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Builder
 @Entity
 @Table(name = "questions")
-public class Question {
+public class Question implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -41,6 +46,7 @@ public class Question {
     @Column(name = "difficult", nullable = false, columnDefinition = "TINYINT DEFAULT 1")
     private int difficult;
 
-    @OneToMany(mappedBy = "question")
-    Set<Round> rounds;
+    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
+    @Fetch(value = SELECT)
+    List<Round> rounds = new ArrayList<>();
 }

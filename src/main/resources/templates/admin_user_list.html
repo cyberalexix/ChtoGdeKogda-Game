@@ -30,7 +30,7 @@
             </thead>
             <tbody>
             <tr th:each="user : ${userlist}">
-                <td th:text="${{user.id}}"></td>
+                <td th:text="${user.id}"></td>
                 <td th:text="${{user.username}}"></td>
                 <td th:text="${{user.password}}"></td>
                 <td th:text="${{user.role}}"></td>

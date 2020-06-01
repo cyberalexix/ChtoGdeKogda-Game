@@ -1,31 +1,31 @@
 package com.game.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Builder
 @Entity
 @Table(name = "rounds")
-public class Round {
+public class Round implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "question_id")
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "QUESTION_ID")
     Question question;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "USER_ID")
     User user;
 
     @Column(name = "hint_given", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 0")
@@ -45,4 +45,16 @@ public class Round {
 
     @Column(name = "score", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 0")
     private int score;
+
+    public boolean getIsHintGiven() {
+        return isHintGiven;
+    }
+
+    public boolean getIsWon() {
+        return isWon;
+    }
+
+    public boolean getIsFinished() {
+        return isFinished;
+    }
 }
