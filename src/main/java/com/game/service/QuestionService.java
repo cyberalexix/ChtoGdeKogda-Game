@@ -3,7 +3,6 @@ package com.game.service;
 import com.game.dto.QuestionDTO;
 import com.game.entity.Question;
 import com.game.repository.QuestionRepository;
-import jdk.nashorn.internal.runtime.options.Option;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -61,6 +60,10 @@ public class QuestionService {
 
     public Optional<Question> findById(Long id) {
         return questionRepository.findById(id);
+    }
+
+    public Question getRandomQuestion() {
+        return questionRepository.getRandQuestion();
     }
 
 }

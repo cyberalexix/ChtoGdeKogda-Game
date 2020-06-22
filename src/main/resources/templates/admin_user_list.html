@@ -22,7 +22,6 @@
             <tr>
                 <th th:text="#{table.id}"></th>
                 <th th:text="#{table.username}"></th>
-                <th th:text="#{table.password}"></th>
                 <th th:text="#{table.role}"></th>
                 <th th:text="#{table.en.name}"></th>
                 <th th:text="#{table.uk.name}"></th>
@@ -32,7 +31,6 @@
             <tr th:each="user : ${userlist}">
                 <td th:text="${user.id}"></td>
                 <td th:text="${{user.username}}"></td>
-                <td th:text="${{user.password}}"></td>
                 <td th:text="${{user.role}}"></td>
                 <td th:text="${{user.nameEn}}"></td>
                 <td th:text="${{user.nameUk}}"></td>

@@ -25,12 +25,12 @@
             <label for="matching_password" th:text="#{login.matching.password}"></label>
             <input type="password" id="matching_password" class="fadeIn second" th:field="*{matching_password}">
             <p class="text-danger" th:if="${#fields.hasErrors('matching_password')}" th:errors="*{matching_password}"></p>
-            <label for="name_uk" th:text="#{login.ukrainian.name}"></label>
-            <input type="text" id="name_uk" class="fadeIn second" th:field="*{name_uk}">
-            <p class="text-danger" th:if="${#fields.hasErrors('name_uk')}" th:errors="*{name_uk}"></p>
-            <label for="name_en" th:text="#{login.english.name}"></label>
-            <input type="text" id="name_en" class="fadeIn second" th:field="*{name_en}">
-            <p class="text-danger" th:if="${#fields.hasErrors('name_en')}" th:errors="*{name_en}"></p>
+            <label for="nameUk" th:text="#{login.ukrainian.name}"></label>
+            <input type="text" id="nameUk" class="fadeIn second" th:field="*{nameUk}">
+            <p class="text-danger" th:if="${#fields.hasErrors('nameUk')}" th:errors="*{nameUk}"></p>
+            <label for="nameEn" th:text="#{login.english.name}"></label>
+            <input type="text" id="nameEn" class="fadeIn second" th:field="*{nameEn}">
+            <p class="text-danger" th:if="${#fields.hasErrors('nameEn')}" th:errors="*{nameEn}"></p>
             <input type="submit" class="fadeIn third" th:value="#{login.registration}">
         </form>
     </div>

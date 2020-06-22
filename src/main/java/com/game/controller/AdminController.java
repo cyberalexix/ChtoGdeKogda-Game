@@ -3,29 +3,24 @@ package com.game.controller;
 import com.game.config.GameConfig;
 import com.game.dto.QuestionDTO;
 import com.game.dto.QuestionDTOValidator;
-import com.game.dto.UserDTO;
 import com.game.entity.Question;
+import com.game.entity.Round;
 import com.game.entity.User;
-import com.game.repository.QuestionRepository;
-import com.game.repository.UserRepository;
 import com.game.service.QuestionService;
+import com.game.service.RoundService;
 import com.game.service.UserService;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -38,6 +33,9 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RoundService roundService;
 
     @Autowired
     private GameConfig gameConfig;
@@ -133,6 +131,34 @@ public class AdminController {
         }
         questionService.saveQuestion(questionDTO);
         return "redirect:/admin/add_new_question?added";
+    }
+
+    @GetMapping("/admin")
+    public String getTableOfRounds(Model model,
+                                   @RequestParam("page") Optional<Integer> page) {
+        int currentPage = page.orElse(1);
+        int sizePage = Integer.parseInt(gameConfig.getValue("pagination.size"));
+        model.addAttribute("roundslist", roundService.findByFinishedStatus(PageRequest.of(currentPage-1, sizePage)));
+        model.addAttribute("lang", LocaleContextHolder.getLocaleContext().getLocale().getLanguage());
+        return "admin_table";
+    }
+
+    @GetMapping("/admin/{id}/right")
+    public String approveRound(Model model,
+                               @PathVariable Long id) {
+        Round round = roundService.findById(id).get();
+        int multiplier = round.getIsHintGiven() ? 1 : 2;
+        int score = round.getQuestion().getDifficult() * multiplier;
+        roundService.finalUpdate(id, score, true, true);
+        return "redirect:/admin";
+    }
+
+    @GetMapping("/admin/{id}/wrong")
+    public String disapproveRound(Model model,
+                               @PathVariable Long id) {
+        Round round = roundService.findById(id).get();
+        roundService.finalUpdate(id, 0, true, false);
+        return "redirect:/admin";
     }
 
     @InitBinder

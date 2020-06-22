@@ -1,7 +1,6 @@
 package com.game.service;
 
 import com.game.config.CryptConfig;
-import com.game.config.SecurityConfig;
 import com.game.dto.UserDTO;
 import com.game.entity.Role;
 import com.game.entity.User;
@@ -38,13 +37,18 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    @Transactional
     public User saveUser(UserDTO userDTO) {
         return userRepository.save(User.builder()
                 .username(userDTO.getUsername())
                 .password(cryptConfig.getPasswordEncoder().encode(userDTO.getPassword()))
                 .role(Role.ROLE_USER)
-                .nameUk(userDTO.getName_uk())
-                .nameEn(userDTO.getName_en())
+                .nameUk(userDTO.getNameUk())
+                .nameEn(userDTO.getNameEn())
                 .build());
     }
 }

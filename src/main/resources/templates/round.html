@@ -13,7 +13,16 @@
 
 <body>
 <th:block th:include="/navbar"></th:block>
-<a href="/user/new_round"><p align="center" th:text="#{go.to.question}"></p></a>
-<th:block th:include="'/table_rounds_' + ${lang}"></th:block>
+
+<p th:text="${question}"></p>
+<p th:text="${hint}"></p>
+<form th:action="@{/user/round/} + ${id}" th:object="${roundDTO}" method="POST">
+    <label for="answer" th:text="#{answer}"></label>
+    <input type="text" id="answer" th:field="*{answer}">
+    <input type="submit" th:value="#{send.answer}">
+</form>
+<form th:action="@{/user/round/} + ${id} + '/get_hint'" method="POST">
+    <input type="submit" th:value="#{get.hint}">
+</form>
 </body>
 </html>

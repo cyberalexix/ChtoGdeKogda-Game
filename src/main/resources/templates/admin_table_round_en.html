@@ -1,0 +1,36 @@
+<div class="row" th:if="${roundslist != null && !roundslist.isEmpty()}" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <table id="link-list" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+            <tr>
+                <th th:text="#{table.question.english}"></th>
+                <th th:text="#{table.hint.english}"></th>
+                <th th:text="#{table.answer.english}"></th>
+                <th th:text="#{table.given_answer}"></th>
+                <th th:text="#{table.right}"></th>
+                <th th:text="#{table.wrong}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="round : ${roundslist}">
+                <td th:text="${round.question.questionEn}"></td>
+                <td th:text="${round.question.hintEn}"></td>
+                <td th:text="${round.question.answerEn}"></td>
+                <td th:text="${round.givenAnswer}"></td>
+                <td><a th:href="@{/admin/} + ${round.id} + '/right'">V</a></td>
+                <td><a th:href="@{/admin/} + ${round.id} + '/wrong'">X</a></td>
+                <td ></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="col-md-2"></div>
+        <div th:if="${roundslist.totalPages > 0}" class="pagination"
+             th:each="pageNumber : ${pageNumbers}">
+            <a th:href="@{''(page=${pageNumber})}"
+               th:text=${pageNumber}
+               th:class="${pageNumber==roundslist.number + 1} ? active"></a>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>

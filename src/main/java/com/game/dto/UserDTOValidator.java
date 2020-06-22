@@ -28,12 +28,19 @@ public class UserDTOValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "empty.username");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "empty.password");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "matching_password", "empty.matching.password");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name_uk", "empty.name.uk");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name_en", "empty.name.en");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nameUk", "empty.name.uk");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nameEn", "empty.name.en");
 
         if(!errors.hasFieldErrors("username")) {
             if(userService.findByUsername(userDTO.getUsername()).isPresent()){
                 errors.rejectValue("username", "error.user.exists");
+            } else {
+                for (char a : userDTO.getUsername().toCharArray()) {
+                    if (Character.UnicodeBlock.of(a) != Character.UnicodeBlock.BASIC_LATIN) {
+                        errors.rejectValue("username", "error.username.alphabet");
+                        break;
+                    }
+                }
             }
         }
 
@@ -43,19 +50,19 @@ public class UserDTOValidator implements Validator {
             }
         }
 
-        if(!errors.hasFieldErrors("name_uk")) {
-            for (char a : userDTO.getName_uk().toCharArray()) {
+        if(!errors.hasFieldErrors("nameUk")) {
+            for (char a : userDTO.getNameUk().toCharArray()) {
                 if (Character.UnicodeBlock.of(a) != Character.UnicodeBlock.CYRILLIC) {
-                    errors.rejectValue("name_uk", "error.name.uk.alphabet");
+                    errors.rejectValue("nameUk", "error.name.uk.alphabet");
                     break;
                 }
             }
         }
 
-        if(!errors.hasFieldErrors("name_en")) {
-            for (char a : userDTO.getName_en().toCharArray()) {
+        if(!errors.hasFieldErrors("nameEn")) {
+            for (char a : userDTO.getNameEn().toCharArray()) {
                 if (Character.UnicodeBlock.of(a) != Character.UnicodeBlock.BASIC_LATIN) {
-                    errors.rejectValue("name_en", "error.name.en.alphabet");
+                    errors.rejectValue("nameEn", "error.name.en.alphabet");
                     break;
                 }
             }

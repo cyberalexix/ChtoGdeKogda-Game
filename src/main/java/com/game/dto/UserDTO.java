@@ -16,14 +16,14 @@ public class UserDTO {
     String password;
     String matching_password;
     Role role;
-    String name_uk;
-    String name_en;
+    String nameUk;
+    String nameEn;
 
     public UserDTO(User user) {
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.role = user.getRole();
-        this.name_uk = user.getNameUk();
-        this.name_en = user.getNameEn();
+        this.nameUk = user.getNameUk();
+        this.nameEn = user.getNameEn();
     }
 }

@@ -23,4 +23,7 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     void updateQuestion(@Param("id") Long id, @Param("questionEn") String questionEn, @Param("questionUk") String questionUk, @Param("hintEn") String hintEn, @Param("hintUk") String hintUk, @Param("answerEn") String answerEn, @Param("answerUk") String answerUk, @Param("difficult") int difficult);
 
     void deleteById(Long id);
+
+    @Query(value = "SELECT * FROM questions AS q ORDER BY rand() LIMIT 1", nativeQuery = true)
+    Question getRandQuestion();
 }
